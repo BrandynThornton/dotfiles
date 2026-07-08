@@ -1,3 +1,23 @@
+# App installs, assumes scoop
+$scoopExportJson = scoop export | ConvertFrom-Json
+if (!($scoopExportJson.apps.Name -contains "neovim")) {
+  scoop install neovim
+}
+if (!($scoopExportJson.apps.Name -contains "jq")) {
+  scoop install jq
+}
+if (!($scoopExportJson.apps.Name -contains "starship")) {
+  scoop install starship
+}
+if (!($scoopExportJson.apps.Name -contains "wezterm")) {
+  scoop bucket add extras
+  scoop install wezterm
+}
+if (!($scoopExportJson.apps.Name -contains "Hack-NF")) {
+  scoop bucket add nerd-fonts
+  scoop install Hack-NF
+}
+# Configuration files
 $nvimConfigPath = Join-Path $env:localappdata "nvim/init.lua"
 $nvimGitPath = Join-Path $PSScriptRoot "nvim/init.lua"
 
