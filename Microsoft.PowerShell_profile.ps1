@@ -18,27 +18,35 @@ if (!($scoopExportJson.apps.Name -contains "Hack-NF")) {
   scoop install Hack-NF
 }
 # Configuration files
-$nvimConfigPath = Join-Path $env:localappdata "nvim/init.lua"
-$nvimGitPath = Join-Path $PSScriptRoot "nvim/init.lua"
-
+# NVIM
+$nvimConfigPath = Join-Path $env:localappdata "nvim"
+$nvimGitPath = Join-Path $PSScriptRoot "nvim"
 if (!(test-path $nvimConfigPath)) {
-  New-Item -Type SymbolicLink -Path $nvimConfigPath -Target $nvimGitPath
+  New-Item -Type Junction -Path $nvimConfigPath -Target $nvimGitPath
 }
-
+# WEZTERM
 $weztermConfigPath = Join-Path $home ".wezterm.lua"
 $weztermGitPath = Join-Path $PSScriptRoot "wezterm/.wezterm.lua"
-
 if (!(test-path $weztermConfigPath)) {
-  New-Item -Type SymbolicLink -Path $weztermConfigPath -Target $weztermGitPath
+  New-Item -Type HardLink -Path $weztermConfigPath -Target $weztermGitPath
 }
-
+# STARSHIP
 $starshipConfigPath = Join-Path $home ".config/starship.toml"
 $starshipGitPath = Join-Path $PSScriptRoot "starship/starship.toml"
-
 if (!(test-path $starshipConfigPath)) {
-  New-Item -Type SymbolicLink -Path $starshipConfigPath -Target $starshipGitPath
+  New-Item -Type HardLink -Path $starshipConfigPath -Target $starshipGitPath
 }
-
+# CLAUDE
+$claudeConfigPath = Join-Path $home ".claude/settings.json"
+$claudeGitPath = Join-Path $PSScriptRoot ".claude/settings.json"
+if (!(test-path $claudeConfigPath)) {
+  New-Item -Type HardLink -Path $claudeConfigPath -Target $claudeGitPath
+}
+$claudeConfigPath = Join-Path $home ".claude/CLAUDE.md"
+$claudeGitPath = Join-Path $PSScriptRoot "AGENTS.md"
+if (!(test-path $claudeConfigPath)) {
+  New-Item -Type HardLink -Path $claudeConfigPath -Target $claudeGitPath
+}
 if (!($env:Path -contains "Git")) {
     $env:Path += ";$env:localappdata\Programs\Git\bin"
 }
