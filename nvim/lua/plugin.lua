@@ -11,3 +11,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup('plugins') -- load every file in lua/plugins/
+
+require('nvim-treesitter').install { 'regex' }
