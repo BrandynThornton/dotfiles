@@ -51,6 +51,13 @@ if (!($env:Path -contains "Git")) {
     $env:Path += ";$env:localappdata\Programs\Git\bin"
 }
 
+Set-PSReadLineKeyHandler -Key Tab -Function AcceptSuggestion
+Set-PSReadLineKeyHandler -Chord UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Chord DownArrow -Function HistorySearchForward
+Set-PSReadLineKeyHandler -Chord "Shift+Tab" -Function TabCompleteNext
+Set-PSReadLineKeyHandler -Chord RightArrow -Function ForwardWord
+Set-PSReadLineKeyHandler -Chord LeftArrow -Function BackwardWord
+
 function cdd {
     push-location C:\Code-One-THD
 }
